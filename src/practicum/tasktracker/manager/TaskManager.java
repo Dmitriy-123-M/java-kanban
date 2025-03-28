@@ -1,8 +1,7 @@
 package practicum.tasktracker.manager;
 import practicum.tasktracker.models.*;
-
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.ArrayList;
 
 public class TaskManager {
     private HashMap<Integer, Task> tasks = new HashMap<>();
@@ -13,26 +12,26 @@ public class TaskManager {
     public void createTask(Task task) {
         task.setId(nextId);
         tasks.put(nextId, task);
-        System.out.println("Создана задача: " + task.toString());
+        System.out.println(String.format("Создана задача: %s", task));
         nextId++;
     }
 
     public void createEpic(Epic epic) {
         epic.setId(nextId);
         epics.put(nextId, epic);
-        System.out.println("Создан Эпик: " + epic.toString());
+        System.out.println(String.format("Создан Эпик: %s", epic));
         nextId++;
     }
 
     public void createSubtask(Subtask subtask, int epicId) {
         if (!epics.containsKey(epicId)) {
-            System.out.println("Не существует эпика с ID: " + epicId);
+            System.out.println(String.format("Не существует эпика с ID: %d", epicId));
         }
         subtask.setEpicId(epicId);
         subtask.setId(nextId);
         epics.get(epicId).addSubtaskId(nextId);
         subtasks.put(nextId, subtask);
-        System.out.println("Создана подзадача: " + subtask.toString());
+        System.out.println(String.format("Создана подзадача: %s", subtask));
         nextId++;
     }
 
@@ -50,7 +49,7 @@ public class TaskManager {
 
     public ArrayList<Subtask> getAllSubtasksOfEpic(int epicId) {
         if (!epics.containsKey(epicId)) {
-            System.out.println("Не существует эпика с ID: " + epicId);
+            System.out.println(String.format("Не существует эпика с ID: %d", epicId));
         }
         ArrayList<Subtask> rezult = new ArrayList<>();
         for (int subId : epics.get(epicId).getSubtaskIds()) {
