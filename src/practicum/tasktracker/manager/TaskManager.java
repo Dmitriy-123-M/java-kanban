@@ -1,190 +1,56 @@
 package practicum.tasktracker.manager;
-import practicum.tasktracker.models.*;
-import java.util.HashMap;
+
+import practicum.tasktracker.models.Epic;
+import practicum.tasktracker.models.Status;
+import practicum.tasktracker.models.Subtask;
+import practicum.tasktracker.models.Task;
+
 import java.util.ArrayList;
+import java.util.List;
 
-public class TaskManager {
-    private HashMap<Integer, Task> tasks = new HashMap<>();
-    private HashMap<Integer, Epic> epics = new HashMap<>();
-    private HashMap<Integer, Subtask> subtasks = new HashMap<>();
-    private static int nextId = 1;
+public interface TaskManager {
 
-    public void createTask(Task task) {
-        task.setId(nextId);
-        tasks.put(nextId, task);
-        System.out.println(String.format("Создана задача: %s", task));
-        nextId++;
-    }
+    void createTask(Task task);
 
-    public void createEpic(Epic epic) {
-        epic.setId(nextId);
-        epics.put(nextId, epic);
-        System.out.println(String.format("Создан Эпик: %s", epic));
-        nextId++;
-    }
+    void createEpic(Epic epic);
 
-    public void createSubtask(Subtask subtask, int epicId) {
-        if (!epics.containsKey(epicId)) {
-            System.out.println(String.format("Не существует эпика с ID: %d", epicId));
-        }
-        subtask.setEpicId(epicId);
-        subtask.setId(nextId);
-        epics.get(epicId).addSubtaskId(nextId);
-        subtasks.put(nextId, subtask);
-        System.out.println(String.format("Создана подзадача: %s", subtask));
-        nextId++;
-    }
+    void createSubtask(Subtask subtask, int epicId);
 
-    public ArrayList<Task> getAllTasks() {
-        return new ArrayList<>(tasks.values());
-    }
+    ArrayList<Task> getTasks();
 
-    public ArrayList<Epic> getAllEpics() {
-        return new ArrayList<>(epics.values());
-    }
+    ArrayList<Epic> getEpics();
 
-    public ArrayList<Subtask> getAllSubtasks() {
-        return new ArrayList<>(subtasks.values());
-    }
+    ArrayList<Subtask> getSubtasks();
 
-    public ArrayList<Subtask> getAllSubtasksOfEpic(int epicId) {
-        if (!epics.containsKey(epicId)) {
-            System.out.println(String.format("Не существует эпика с ID: %d", epicId));
-        }
-        ArrayList<Subtask> rezult = new ArrayList<>();
-        for (int subId : epics.get(epicId).getSubtaskIds()) {
-            rezult.add(subtasks.get(subId));
-        }
-        return rezult;
-    }
+    ArrayList<Subtask> getEpicSubtasks(int epicId);
 
-    public void deleteAllTasks() {
-        tasks.clear();
-    }
+    void deleteAllTasks();
 
-    public void deleteAllEpics() {
-        epics.clear();
-        subtasks.clear();
-    }
+    void deleteAllEpics();
 
-    public void deleteAlSubtasks() {
-        for (Epic epic : epics.values()) {
-            epic.getSubtaskIds().clear();
-            epic.setStatus(Status.NEW);
-        }
-        subtasks.clear();
-    }
+    void deleteAllSubtasks();
 
-    public Task getTaskById(int id) {
-        return tasks.get(id);
-    }
+    Task getTaskById(int id);
 
-    public Epic getEpicById(int id) {
-        return epics.get(id);
-    }
+    Epic getEpicById(int id);
 
-    public Subtask getSubtaskById(int id) {
-        return subtasks.get(id);
-    }
+    Subtask getSubtaskById(int id);
 
-    public void updateTask(Task task) {
-        if (tasks.containsKey(task.getId())) {
-            tasks.put(task.getId(), task);
-        }
-    }
+    void updateTask(Task task);
 
-    public void updateEpic(Epic epic) {
-        if (epics.containsKey(epic.getId())) {
-            epics.put(epic.getId(), epic);
-        }
-    }
+    void updateEpic(Epic epic);
 
-    public void updateSubtask(Subtask subtask) {
-        if (subtasks.containsKey(subtask.getId())) {
-            subtasks.put(subtask.getId(), subtask);
-        }
-    }
+    void updateSubtask(Subtask subtask);
 
-    public void updateTaskStatus(int taskId, Status status) {
-        Task task = tasks.get(taskId);
-        task.setStatus(status);
-    }
+    void updateTaskStatus(int taskId, Status status);
 
-    public void updateSubtaskStatus(int subtaskId, Status status) {
-        Subtask subtask = subtasks.get(subtaskId);
-        subtask.setStatus(status);
-        updateEpicStatus(subtask.getEpicId());
-    }
+    void updateSubtaskStatus(int subtaskId, Status status);
 
-    private void updateEpicStatus(int epicId) {
-        Epic epic = epics.get(epicId);
-        ArrayList<Subtask> epicSubtasks = getAllSubtasksOfEpic(epicId);
-        if (epicSubtasks.isEmpty()) {
-            epic.setStatus(Status.NEW);
-            return;
-        }
+    void deleteTaskById(int taskId);
 
-        boolean isAllNew = true;
-        boolean isAllDone = true;
+    void deleteEpicById(int epicId);
 
-        for (Subtask subtask : epicSubtasks) {
-            if (subtask.getStatus() != Status.NEW) {
-                isAllNew = false;
-            }
-            if (subtask.getStatus() != Status.DONE) {
-                isAllDone = false;
-            }
-        }
+    void deleteSubtaskById(int subtaskId);
 
-        if (isAllNew) {
-            epic.setStatus(Status.NEW);
-        } else if (isAllDone) {
-            epic.setStatus(Status.DONE);
-        } else {
-            epic.setStatus(Status.IN_PROGRESS);
-        }
-    }
-
-    public void deleteTaskById(int taskId) {
-        tasks.remove(taskId);
-    }
-
-    public void deleteEpicById(int epicId) {
-        if (epics.get(epicId).getSubtaskIds().isEmpty()) {
-            epics.remove(epicId);
-            return;
-        } else {
-            for (int subId : epics.get(epicId).getSubtaskIds()) {
-                subtasks.remove(subId);
-            }
-            epics.remove(epicId);
-        }
-    }
-
-    public void deleteSubtaskById(int subtaskId) {
-        int parentEpicId = subtasks.get(subtaskId).getEpicId();
-        epics.get(parentEpicId).getSubtaskIds().remove(subtaskId);
-        subtasks.remove(subtaskId);
-        updateEpicStatus(parentEpicId);
-    }
+    List<Task> getHistory();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
