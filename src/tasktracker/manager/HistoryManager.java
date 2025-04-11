@@ -1,6 +1,6 @@
-package practicum.tasktracker.manager;
+package tasktracker.manager;
 
-import practicum.tasktracker.models.Task;
+import tasktracker.models.Task;
 import java.util.List;
 
 public interface HistoryManager {

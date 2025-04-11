@@ -1,10 +1,10 @@
-package practicum.tasktracker.test;
+package tests;
 
 import org.junit.jupiter.api.Test;
-import practicum.tasktracker.manager.HistoryManager;
-import practicum.tasktracker.manager.Managers;
-import practicum.tasktracker.manager.TaskManager;
-import practicum.tasktracker.models.Task;
+import tasktracker.manager.HistoryManager;
+import tasktracker.manager.Managers;
+import tasktracker.manager.TaskManager;
+import tasktracker.models.Task;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 

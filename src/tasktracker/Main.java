@@ -1,7 +1,9 @@
-package practicum.tasktracker;
-import practicum.tasktracker.manager.Managers;
-import practicum.tasktracker.manager.TaskManager;
-import practicum.tasktracker.models.*;
+package tasktracker;
+import tasktracker.manager.Managers;
+import tasktracker.manager.TaskManager;
+import tasktracker.models.Epic;
+import tasktracker.models.Subtask;
+import tasktracker.models.Task;
 
 public class Main {
     public static void main(String[] args) {

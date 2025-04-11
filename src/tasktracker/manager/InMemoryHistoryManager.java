@@ -1,8 +1,8 @@
-package practicum.tasktracker.manager;
+package tasktracker.manager;
 
-import practicum.tasktracker.models.Epic;
-import practicum.tasktracker.models.Subtask;
-import practicum.tasktracker.models.Task;
+import tasktracker.models.Epic;
+import tasktracker.models.Subtask;
+import tasktracker.models.Task;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,9 +1,9 @@
-package practicum.tasktracker.test;
+package tests;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
-import practicum.tasktracker.models.Epic;
-import practicum.tasktracker.models.Status;
+import tasktracker.models.Epic;
+import tasktracker.models.Status;
 import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 

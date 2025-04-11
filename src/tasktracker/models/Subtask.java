@@ -1,4 +1,4 @@
-package practicum.tasktracker.models;
+package tasktracker.models;
 
 public class Subtask extends Task {
     private int epicId;

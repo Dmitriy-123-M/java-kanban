@@ -1,11 +1,14 @@
-package practicum.tasktracker.test;
+package tests;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import practicum.tasktracker.manager.InMemoryTaskManager;
-import practicum.tasktracker.manager.Managers;
-import practicum.tasktracker.manager.TaskManager;
-import practicum.tasktracker.models.*;
+import tasktracker.manager.InMemoryTaskManager;
+import tasktracker.manager.Managers;
+import tasktracker.manager.TaskManager;
+import tasktracker.models.Epic;
+import tasktracker.models.Status;
+import tasktracker.models.Subtask;
+import tasktracker.models.Task;
 
 import static org.junit.jupiter.api.Assertions.*;
 

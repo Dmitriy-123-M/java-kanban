@@ -1,9 +1,9 @@
-package practicum.tasktracker.test;
+package tests;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import practicum.tasktracker.models.Task;
-import practicum.tasktracker.models.Status;
+import tasktracker.models.Task;
+import tasktracker.models.Status;
 import static org.junit.jupiter.api.Assertions.*;
 
 class TaskTest {

@@ -1,10 +1,10 @@
-package practicum.tasktracker.test;
+package tests;
 
 import org.junit.jupiter.api.Test;
-import practicum.tasktracker.manager.HistoryManager;
-import practicum.tasktracker.manager.Managers;
-import practicum.tasktracker.models.Status;
-import practicum.tasktracker.models.Task;
+import tasktracker.manager.HistoryManager;
+import tasktracker.manager.Managers;
+import tasktracker.models.Status;
+import tasktracker.models.Task;
 
 import java.util.List;
 

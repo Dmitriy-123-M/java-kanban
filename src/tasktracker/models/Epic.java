@@ -1,4 +1,4 @@
-package practicum.tasktracker.models;
+package tasktracker.models;
 
 import java.util.ArrayList;
 

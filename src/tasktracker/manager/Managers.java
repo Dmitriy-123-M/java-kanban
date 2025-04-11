@@ -1,4 +1,4 @@
-package practicum.tasktracker.manager;
+package tasktracker.manager;
 
 public class Managers {
 

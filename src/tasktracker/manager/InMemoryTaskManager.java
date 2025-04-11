@@ -1,5 +1,8 @@
-package practicum.tasktracker.manager;
-import practicum.tasktracker.models.*;
+package tasktracker.manager;
+import tasktracker.models.Epic;
+import tasktracker.models.Status;
+import tasktracker.models.Subtask;
+import tasktracker.models.Task;
 
 import java.util.HashMap;
 import java.util.ArrayList;
@@ -10,7 +13,7 @@ public class InMemoryTaskManager implements TaskManager {
     private HashMap<Integer, Epic> epics = new HashMap<>();
     private HashMap<Integer, Subtask> subtasks = new HashMap<>();
     private static int nextId = 1;
-    private final HistoryManager  historyManager;
+    private final HistoryManager historyManager;
 
 
     public InMemoryTaskManager(HistoryManager historyManager) {
