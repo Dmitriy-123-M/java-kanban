@@ -3,7 +3,6 @@ package tasktracker.manager;
 import tasktracker.models.Epic;
 import tasktracker.models.Subtask;
 import tasktracker.models.Task;
-import tasktracker.manager.HistoryManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
