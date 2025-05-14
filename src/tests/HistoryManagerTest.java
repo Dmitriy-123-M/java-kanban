@@ -1,5 +1,6 @@
 package tests;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import tasktracker.manager.HistoryManager;
 import tasktracker.manager.Managers;
@@ -12,37 +13,67 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class HistoryManagerTest {
+    private HistoryManager historyManager;
+
+    @BeforeEach
+    void setUp() {
+        historyManager = Managers.getDefaultHistory();
+    }
 
     @Test
-    void historyManagerShouldPreservePreviousTaskVersions() {
-        HistoryManager historyManager = Managers.getDefaultHistory();
+        // должен хранить только последнюю версию задачи
+    void shouldOnlyLatestVersion() {
+        Task task = new Task("Original", "Descr");
+        task.setId(1);
+        historyManager.add(task);
 
-        //Изначальная версия задачи
-        Task originTask = new Task("Изначальное название", "Изначальное описание");
-        originTask.setId(1);
-        originTask.setStatus(Status.NEW);
-        historyManager.add(originTask);
+        task.setTitle("Modif");
+        historyManager.add(task);
 
-        //Меняем поля задачи, кроме ID
-        Task modifTask = new Task(originTask.getTitle(), originTask.getDescription());
-        modifTask.setId(originTask.getId());
-        modifTask.setTitle("Новое название");
-        modifTask.setDescription("Новое описание");
-        modifTask.setStatus(Status.IN_PROGRESS);
-        historyManager.add(modifTask);
-
-        List<Task> history  = historyManager.getHistory();
-
-        assertEquals(2, history.size(), "В истории должно быть две версии задачи");
-
-        Task firstVersion = history.get(0);
-        Task socondVersion = history.get(1);
-
-        assertNotEquals(firstVersion.getTitle(), socondVersion.getTitle(), "Названия должны быть разные");
-        assertNotEquals(firstVersion.getDescription(), socondVersion.getDescription(),
-                "Описания должна быть разные");
-        assertNotEquals(firstVersion.getStatus(), socondVersion.getStatus(), "Статусы должны оличаться");
-        assertEquals(firstVersion.getId(), socondVersion.getId());
-
+        assertEquals(1, historyManager.getHistory().size()); //размер не должен меняться
+        assertEquals("Modif", historyManager.getHistory().get(0).getTitle());
     }
+
+    @Test
+        // должен корректно удалять задачи из истории
+    void shouldRemoveTasksCorrectly() {
+        Task task1 = new Task("Task 1", "Descr 1");
+        Task task2 = new Task("Task 2", "Descr 2");
+        task1.setId(1);
+        task2.setId(2);
+
+        historyManager.add(task1);
+        historyManager.add(task2);
+        historyManager.remove(1);
+
+        List<Task> history = historyManager.getHistory();
+        assertEquals(1, history.size());
+        assertEquals(2, history.get(0).getId());
+    }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

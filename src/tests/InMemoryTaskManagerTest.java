@@ -10,6 +10,8 @@ import tasktracker.models.Status;
 import tasktracker.models.Subtask;
 import tasktracker.models.Task;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class InMemoryTaskManagerTest {
@@ -20,15 +22,15 @@ public class InMemoryTaskManagerTest {
 
     @BeforeEach
     void testObj() {
-        manager = new InMemoryTaskManager(Managers.getDefaultHistory());
+        manager = Managers.getDefault();
 
-        task = new Task("обычная задача","описание обычной задачи");
+        task = new Task("обычная задача", "описание обычной задачи");
         manager.createTask(task);
 
-        epic = new Epic("эпик","описание эпика");
+        epic = new Epic("эпик", "описание эпика");
         manager.createEpic(epic);
 
-        subtask = new Subtask("подзадача","описание подзадачи");
+        subtask = new Subtask("подзадача", "описание подзадачи");
         manager.createSubtask(subtask, epic.getId());
 
     }
@@ -41,7 +43,7 @@ public class InMemoryTaskManagerTest {
     }
 
     @Test
-    void CheckingThePossibilityOfFindingById() {
+    void checkingThePossibilityOfFindingById() {
         //Создаём копии наших задач по id
         Task foundTask = manager.getTaskById(task.getId());
         Epic foundEpic = manager.getEpicById(epic.getId());
@@ -53,7 +55,19 @@ public class InMemoryTaskManagerTest {
     }
 
     @Test
-    void checkingTasksWithGivenAndGeneratedId(){
+    void checkingCorrectnessEpicDeletion() {
+        Subtask subtaskBeforeDeletion = manager.getSubtaskById(subtask.getId());
+        assertNotNull(subtaskBeforeDeletion, "до удаления эпика подзадача должна существовать");
+
+        manager.deleteEpicById(epic.getId());
+
+        assertTrue(manager.getEpics().isEmpty(), "эпик должен быть удалён");
+        assertNull(manager.getSubtaskById(subtask.getId()), "подзадача тоже должна быть удалена");
+        assertTrue(manager.getSubtasks().isEmpty(), "список подзадач должен быть пуст");
+    }
+
+    @Test
+    void checkingTasksWithGivenAndGeneratedId() {
 
         Task taskWithSetId = new Task("Ручной ID", "Задача с явно заданным ID");
         taskWithSetId.setId(100);
@@ -74,7 +88,7 @@ public class InMemoryTaskManagerTest {
     @Test
     void checkingImmutabilityOfTask() {
         // Создаём задачу и запоминаем все её поля
-        Task  testTask = new Task("Тестовая задача", "Тестовое описение");
+        Task testTask = new Task("Тестовая задача", "Тестовое описение");
         testTask.setId(50);
         testTask.setStatus(Status.IN_PROGRESS);
 
@@ -86,28 +100,12 @@ public class InMemoryTaskManagerTest {
         manager.createTask(testTask);// добавляем в менеджер
 
         Task returnedTask = manager.getTaskById(testId);// Возвращаем задачу
-            //проверяем, что поля не изменились
+        //проверяем, что поля не изменились
         assertEquals(testTitle, returnedTask.getTitle());
         assertEquals(testDescroption, returnedTask.getDescription());
         assertEquals(testId, returnedTask.getId());
         assertEquals(testStatus, returnedTask.getStatus());
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

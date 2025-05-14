@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import tasktracker.models.Task;
 import tasktracker.models.Status;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class TaskTest {
@@ -42,7 +43,7 @@ class TaskTest {
         Task task2 = new Task("task2", "Descr2");
         task1.setId(1); // id = 1
         task2.setId(2); // id = 2
-        assertNotEquals(task1, task2,"Задачи с разными ID не должны быть равны" );
+        assertNotEquals(task1, task2, "Задачи с разными ID не должны быть равны");
     }
 
     @Test
