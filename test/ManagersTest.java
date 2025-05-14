@@ -1,5 +1,3 @@
-package test;
-
 import org.junit.jupiter.api.Test;
 import tasktracker.manager.HistoryManager;
 import tasktracker.manager.Managers;
