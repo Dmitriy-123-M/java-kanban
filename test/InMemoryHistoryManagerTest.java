@@ -36,21 +36,3 @@ public class InMemoryHistoryManagerTest {
         assertEquals(3, history.get(2).getId());
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

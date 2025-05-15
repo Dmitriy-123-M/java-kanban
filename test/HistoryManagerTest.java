@@ -46,30 +46,4 @@ public class HistoryManagerTest {
         assertEquals(1, history.size());
         assertEquals(2, history.get(0).getId());
     }
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
