@@ -1,4 +1,5 @@
 package tasktracker.manager;
+
 import tasktracker.models.Epic;
 import tasktracker.models.Status;
 import tasktracker.models.Subtask;
@@ -56,7 +57,9 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void createSubtask(Subtask subtask, int epicId) {
-        if (subtask.getId() == epicId) { return; }
+        if (subtask.getId() == epicId) {
+            return;
+        }
         if (!epics.containsKey(epicId)) {
             System.out.println(String.format("Не существует эпика с ID: %d", epicId));
         }
@@ -121,7 +124,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public Task getTaskById(int id) {
         Task task = tasks.get(id);
-        if (task != null){
+        if (task != null) {
             historyManager.add(task);
         }
         return task;
@@ -239,23 +242,3 @@ public class InMemoryTaskManager implements TaskManager {
         return historyManager.getHistory();
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -18,7 +18,7 @@ public class Subtask extends Task {
     }
 
     public void setEpicId(int epicId) {
-        if (epicId == this.getId()){
+        if (epicId == this.getId()) {
             System.out.println("Подзадача не может быть своим же эпиком");
             return;
         }

@@ -1,10 +1,9 @@
-package tests;
-
 import org.junit.jupiter.api.Test;
 import tasktracker.manager.HistoryManager;
 import tasktracker.manager.Managers;
 import tasktracker.manager.TaskManager;
 import tasktracker.models.Task;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
