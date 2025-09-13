@@ -1,12 +1,14 @@
 package tasktracker.manager;
 
+import java.io.File;
+
 public class Managers {
 
     private Managers() {
     }
 
     public static TaskManager getDefault() {
-        return new InMemoryTaskManager(getDefaultHistory());
+        return new FileBackedTaskManager(new File("resourсes/data.csv"));
     }
 
     public static HistoryManager getDefaultHistory() {

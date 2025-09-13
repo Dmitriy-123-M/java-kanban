@@ -29,7 +29,7 @@ public class Main {
 
         manager.getTaskById(task1.getId());
         manager.getEpicById(epic1.getId());
-        manager.getSubtaskById(epic1.getId());
+        manager.getSubtaskById(subtask1.getId());
         System.out.println("После просмотра задач");
 
         printAllTasks(manager);
