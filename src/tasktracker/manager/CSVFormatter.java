@@ -88,8 +88,8 @@ public class CSVFormatter {
                 default:
                     throw new IllegalArgumentException("Неизвестный тип задачи: " + type);
             }
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Некорректные данные в строке: " + line, e);
+        } catch (IllegalArgumentException exception) {
+            throw new IllegalArgumentException("Некорректные данные в строке: " + line, exception);
         }
     }
 

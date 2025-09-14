@@ -27,8 +27,8 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             try {
                 file.createNewFile();
 
-            } catch (IOException e) {
-                throw new ManagerSaveException("Не удалось создать файл: " + file.getAbsolutePath(), e);
+            } catch (IOException exception) {
+                throw new ManagerSaveException("Не удалось создать файл: " + file.getAbsolutePath(), exception);
             }
         }
     }
@@ -212,8 +212,8 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             }
 
             nextId = ++maxId;
-        } catch (IOException e) {
-            throw new ManagerSaveException("Ошибка загрузки из файла", e);
+        } catch (IOException exception) {
+            throw new ManagerSaveException("Ошибка загрузки из файла", exception);
         }
     }
 
@@ -238,8 +238,8 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
                 writer.newLine();
             }
 
-        } catch (IOException e) {
-            throw new ManagerSaveException("Ошибка сохранения файла", e);
+        } catch (IOException ioException) {
+            throw new ManagerSaveException("Ошибка сохранения файла", ioException);
         }
     }
 }
