@@ -1,7 +1,7 @@
+package tasktracker.manager;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import tasktracker.manager.Managers;
-import tasktracker.manager.TaskManager;
 import tasktracker.models.Epic;
 import tasktracker.models.Status;
 import tasktracker.models.Subtask;
@@ -9,7 +9,7 @@ import tasktracker.models.Task;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class InMemoryTaskManagerTest {
+public class InMemoryTaskManagerTest  {
     private TaskManager manager;
     private Task task;
     private Epic epic;
