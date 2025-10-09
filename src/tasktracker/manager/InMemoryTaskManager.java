@@ -53,7 +53,7 @@ public class InMemoryTaskManager implements TaskManager {
 
         // Проверяем пересечение перед добавлением
         if (isTaskOverlappingWithAny(task)) {
-            System.out.println("Задача '" + task.getTitle() + "' пересекается по времени с уже существующими задачами!");
+            System.out.printf("Задача '%s' пересекается по времени с уже существующими задачами!", task.getTitle());
             return;
         }
         tasks.put(task.getId(), task);
@@ -141,7 +141,7 @@ public class InMemoryTaskManager implements TaskManager {
 
         // Проверяем пересечение перед добавлением
         if (isTaskOverlappingWithAny(subtask)) {
-            System.out.println("Подзадача '" + subtask.getTitle() + "' пересекается по времени с существующими задачами!");
+            System.out.printf("Подзадача '%s' пересекается по времени с существующими задачами!", subtask.getTitle());
             return;
         }
 
@@ -241,8 +241,7 @@ public class InMemoryTaskManager implements TaskManager {
             Task oldTask = tasks.get(task.getId());
             // Проверяем на пересечение перед обновлением
             if (isTaskOverlappingWithAny(task)) {
-                System.out.println("Задача '" + task.getTitle() + "' пересекается по времени с уже существующими" +
-                        " задачами!");
+                System.out.printf("Задача '%s' пересекается по времени с уже существующими задачами!", task.getTitle());
                 return;
             }
             removeFromPrioritizedTasks(oldTask);
@@ -266,8 +265,8 @@ public class InMemoryTaskManager implements TaskManager {
 
             //Проверяем пересечение по времени перед обновлением
             if (isTaskOverlappingWithAny(subtask)) {
-                System.out.println("Подзадача '" + subtask.getTitle() + "' пересекается по времени с существующими " +
-                        "задачами!");
+                System.out.printf("Подзадача '%s' пересекается по времени с существующими задачами!",
+                        subtask.getTitle());
                 return;
             }
             // Удаляем старую версию из prioritizedTasks

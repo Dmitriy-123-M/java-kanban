@@ -61,7 +61,7 @@ public class CSVFormatter {
 
         String[] parts = parseCsvLine(line);
         if (parts.length < 5) {
-            throw new IllegalArgumentException("Некорректный формат CSV строки: " + line);
+            throw new IllegalArgumentException(String.format("Некорректный формат CSV строки: '%s'", line));
         }
 
         try {
@@ -90,7 +90,7 @@ public class CSVFormatter {
                     break;
                 case SUBTASK:
                     if (parts.length < 6) {
-                        throw new IllegalArgumentException("Для подзадачи отсутствует epicId :" + line);
+                        throw new IllegalArgumentException(String.format("Для подзадачи отсутствует epicId: '%s'", line));
                     }
                     int epicId = Integer.parseInt(parts[5]);
                     Subtask subtask = new Subtask(name, description);
@@ -98,7 +98,7 @@ public class CSVFormatter {
                     task = subtask;
                     break;
                 default:
-                    throw new IllegalArgumentException("Неизвестный тип задачи: " + type);
+                    throw new IllegalArgumentException(String.format("Неизвестный тип задачи: '%s'", type));
             }
 
             task.setId(id);
@@ -109,7 +109,7 @@ public class CSVFormatter {
             return task;
 
         } catch (IllegalArgumentException exception) {
-            throw new IllegalArgumentException("Некорректные данные в строке: " + line, exception);
+            throw new IllegalArgumentException(String.format("Некорректные данные в строке: '%s'", line), exception);
         }
     }
 
@@ -119,14 +119,14 @@ public class CSVFormatter {
         StringBuilder currentField = new StringBuilder();
         boolean inQuotes = false; //Флаг кавычек
 
-        for (int i = 0; i < line.length(); i++) {
-            char cuurrentChar = line.charAt(i);
+        for (int pozition = 0; pozition < line.length(); pozition++) {
+            char cuurrentChar = line.charAt(pozition);
 
             if (cuurrentChar == '"') {
-                if (inQuotes && i + 1 < line.length() && line.charAt(i + 1) == '"') {
+                if (inQuotes && pozition + 1 < line.length() && line.charAt(pozition + 1) == '"') {
                     //Двойная кавычка внутри экранированного поля
                     currentField.append('"');
-                    i++; //Пропускаем вторую кавычку
+                    pozition++; //Пропускаем вторую кавычку
                 } else {
                     // Одиночная кавычка - переключаем режим
                     inQuotes = !inQuotes;
