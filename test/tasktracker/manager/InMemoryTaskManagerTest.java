@@ -1,7 +1,7 @@
+package tasktracker.manager;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import tasktracker.manager.Managers;
-import tasktracker.manager.TaskManager;
 import tasktracker.models.Epic;
 import tasktracker.models.Status;
 import tasktracker.models.Subtask;
@@ -9,7 +9,7 @@ import tasktracker.models.Task;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class InMemoryTaskManagerTest {
+public class InMemoryTaskManagerTest extends TaskManagerTest<InMemoryTaskManager> {
     private TaskManager manager;
     private Task task;
     private Epic epic;
@@ -84,8 +84,9 @@ public class InMemoryTaskManagerTest {
     void checkingImmutabilityOfTask() {
         // Создаём задачу и запоминаем все её поля
         Task testTask = new Task("Тестовая задача", "Тестовое описение");
-        testTask.setId(50);
+
         testTask.setStatus(Status.IN_PROGRESS);
+        manager.createTask(testTask);
 
         int testId = testTask.getId();
         Status testStatus = testTask.getStatus();
@@ -100,5 +101,10 @@ public class InMemoryTaskManagerTest {
         assertEquals(testDescroption, returnedTask.getDescription());
         assertEquals(testId, returnedTask.getId());
         assertEquals(testStatus, returnedTask.getStatus());
+    }
+
+    @Override
+    protected InMemoryTaskManager createManager() {
+        return new InMemoryTaskManager();
     }
 }

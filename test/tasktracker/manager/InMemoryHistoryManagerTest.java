@@ -1,7 +1,7 @@
+package tasktracker.manager;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import tasktracker.manager.HistoryManager;
-import tasktracker.manager.Managers;
 import tasktracker.models.Task;
 
 import java.util.List;

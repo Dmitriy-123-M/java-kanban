@@ -1,7 +1,7 @@
+package tasktracker.models;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import tasktracker.models.Task;
-import tasktracker.models.Status;
 
 import static org.junit.jupiter.api.Assertions.*;
 

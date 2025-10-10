@@ -1,9 +1,8 @@
+package tasktracker.manager;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-import tasktracker.manager.FileBackedTaskManager;
-import tasktracker.manager.InMemoryTaskManager;
-import tasktracker.manager.TaskManager;
 import tasktracker.models.Epic;
 import tasktracker.models.Status;
 import tasktracker.models.Subtask;
@@ -11,18 +10,27 @@ import tasktracker.models.Task;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class FileBackedTaskManagerTest {
+public class FileBackedTaskManagerTest extends TaskManagerTest<FileBackedTaskManager> {
 
     @TempDir
     Path tempDir;
 
-    private File testFile;
-    private FileBackedTaskManager manager;
+    protected File testFile;
+
+
+    @Override
+    protected FileBackedTaskManager createManager() {
+        try {
+            testFile = File.createTempFile("test", ".csv", tempDir.toFile());
+            return new FileBackedTaskManager(testFile);
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
 
     @BeforeEach
     void setUp() throws IOException {
@@ -154,5 +162,15 @@ public class FileBackedTaskManagerTest {
         memoryManager.getEpicById(epic.getId());
         fileManager.getEpicById(epic.getId());
         assertEquals(memoryManager.getHistory().size(), fileManager.getHistory().size());
+    }
+
+    //Выдать исключение, если файл недоступен для записи
+    @Test
+    void shouldThrowExeptionWhenFileNotWritable() throws IOException {
+        File readOnlyFile = File.createTempFile("readonly", ".csv", tempDir.toFile());
+        readOnlyFile.setReadOnly();
+        FileBackedTaskManager fileManager = new FileBackedTaskManager(readOnlyFile);
+
+        assertThrows(ManagerSaveException.class, fileManager::save);
     }
 }

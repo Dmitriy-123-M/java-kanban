@@ -9,8 +9,9 @@ public class Subtask extends Task {
 
     @Override
     public String toString() {
-        return String.format("Subtask{id=%d, title='%s', description = '%s', status=%s, epicId=%d}",
-                getId(), getTitle(), getDescription(), getStatus(), epicId);
+        return String.format("Subtask{id=%d, title='%s', description = '%s', status=%s, epicId=%d, startTime=%s," +
+                        " duration=%s}",
+                getId(), getTitle(), getDescription(), getStatus(), epicId, getStartTime(), getDuration());
     }
 
     public int getEpicId() {
